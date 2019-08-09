@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Marimar</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="Marimar Hotel template project">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="static/public/bootstrap-4.1.2/bootstrap.min.css">
+<link href="static/public/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="static/public/OwlCarousel2-2.3.4/owl.carousel.css">
+<link rel="stylesheet" type="text/css" href="static/public/OwlCarousel2-2.3.4/owl.theme.default.css">
+<link rel="stylesheet" type="text/css" href="static/public/OwlCarousel2-2.3.4/animate.css">
+<link href="static/public/jquery-datepicker/jquery-ui.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="static/public/main_styles.css">
+<link rel="stylesheet" type="text/css" href="static/public/responsive.css">
+</head>
+<body>
+
+
+<div class="super_container" ng-app="app">
+
+	<!-- Header -->
+
+	<header class="header">
+		<div class="header_content d-flex flex-column align-items-center justify-content-lg-end justify-content-center">
+			
+			<!-- Logo -->
+			<div class="logo"><a href="#"><img class="logo_1" src="static/assets/logo.png" alt=""><img class="logo_2" src="static/assets/logo_2.png" alt=""><img class="logo_3" src="static/assets/logo_3.png" alt=""></a></div>
+
+			<!-- Main Nav -->
+			<nav class="main_nav">
+				<ul class="d-flex flex-row align-items-center justify-content-start">
+					<li class="active"><a href="/">Home</a></li>
+					<li><a href="about">About us</a></li>
+					<li><a href="contact">Contact</a></li>
+				</ul>
+			</nav>
+
+			<!-- Social -->
+			<div class="social header_social">
+				<ul class="d-flex flex-row align-items-center justify-content-start">
+					<li><a href="https://www.facebook.com/dlandrybeachhouse/"><i class="fa fa-facebook-square" style="font-size:24px;" aria-hidden="true"></i></a></li>
+				</ul>
+			</div>
+
+			<!-- Header Right -->
+			<div class="header_right d-flex flex-row align-items-center justify-content-start">
+
+				<!-- Header Link -->
+				<div class="header_link"><a href="#">Book Your Room Now</a></div>
+
+				<!-- Hamburger Button -->
+				<div class="hamburger"><i class="fa fa-bars" aria-hidden="true"></i></div>
+
+			</div>
+		</div>
+			
+	</header>
+
+	<!-- Logo Overlay -->
+
+	<div class="logo_overlay">
+		<div class="logo_overlay_content d-flex flex-column align-items-center justify-content-center">
+			<div class="logo"><a href="#"><img src="static/assets/logo_3.png" alt=""></a></div>
+		</div>
+	</div>
+
+	<!-- Menu Overlay -->
+
+	<div class="menu_overlay">
+		<div class="menu_overlay_content d-flex flex-row align-items-center justify-content-center">
+			
+			<!-- Hamburger Button -->
+			<div class="hamburger"><i class="fa fa-bars" aria-hidden="true"></i></div>
+
+		</div>
+	</div>
+
+	<!-- Menu -->
+
+	<div class="menu">
+		<div class="menu_container d-flex flex-column align-items-center justify-content-center">
+
+			<!-- Menu Navigation -->
+			<nav class="menu_nav text-center">
+				<ul>
+					<li><a href="/">Home</a></li>
+					<li><a href="about">About us</a></li>
+					<li><a href="contact">Contact</a></li>
+				</ul>
+			</nav>
+			<div class="button menu_button"><a href="#">book now</a></div>
+
+			<!-- Menu Social -->
+			<div class="social menu_social">
+				<ul class="d-flex flex-row align-items-center justify-content-start">
+					<li><a href="https://www.facebook.com/dlandrybeachhouse/"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+				</ul>
+			</div>
+
+		</div>
+	</div>
+
+	<!-- Home -->
+
+	<div class="home">
+		<div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="static/assets/home.jpg" data-speed="0.8"></div>
+		<div class="home_container d-flex flex-column align-items-center justify-content-center">
+			<div class="home_title"><h1>Book Your Stay</h1></div>
+			<div class="home_text text-center">Enjoy your stay at the best kept secret in Florida.</div>
+			<div class="button home_button"><a href="#">book now</a></div>
+		</div>
+	</div>
+
+	<!-- Booking -->
+
+	<div class="booking">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="booking_container d-flex flex-row align-items-end justify-content-start">
+						<form action="#" class="booking_form">
+							<div class="booking_form_container d-flex flex-lg-row flex-column align-items-start justify-content-start flex-wrap">
+								<div class="booking_form_inputs d-flex flex-row align-items-start justify-content-between flex-wrap">
+									<div class="booking_dropdown"><input type="text" class="datepicker booking_input booking_input_a booking_in" placeholder="Check in" required="required"></div>
+									<div class="booking_dropdown"><input type="text" class="datepicker booking_input booking_input_a booking_out" placeholder="Check out" required="required"></div>
+									<div class="custom-select">
+										<select>
+											<option value="0">Adults</option>
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
+											<option value="5">5</option>
+										</select>
+									</div>
+									<div class="custom-select">
+										<select>
+											<option value="0">Children</option>
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
+											<option value="5">5</option>
+										</select>
+									</div>
+								</div>
+								<button class="booking_form_button ml-lg-auto">book now</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Intro and Gallery Code-->
+	<div class="intro">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="section_title text-center">
+						<div>Welcome</div>
+						<h1>Amazing house in front of the ocean</h1>
+					</div>
+				</div>
+			</div>
+			<div class="row intro_row">
+				<div class="col">
+					<div class="intro_text text-center">
+						<i class="fa fa-lock" style="font-size:48px;"></i>
+						<h3>Your vacation is safe with us</h3>
+						<p>Secure payments, 24/7 support and a Book with Confidence guarantee</p>
+					</div>
+				</div>
+				<div class="col">
+					<div class="intro_text text-center">
+						<i class="fa fa-location-arrow" style="font-size:48px;"></i>
+						<h3>Better vacations start here</h3>
+						<p>From booking to staying, the whole process is easy and enjoyable</p>
+					</div>
+				</div>
+				<div class="col">
+					<div class="intro_text text-center">
+						<i class="fa fa-home" style="font-size:48px;"></i>
+						<h3>All the comforts of home</h3>
+						<p>Enjoy full kitchens, laundry, pools, yards and more</p>.
+					</div>
+				</div>
+				<div class="col">
+					<div class="intro_text text-center">
+						<i class="fa fa-money" style="font-size:48px;"></i>
+						<h3>More for less</h3>
+						<p>More space, more privacy, more amenities — more value</p>
+					</div>
+				</div>
+			</div>
+			<div class="row gallery_row">
+				<div class="col">
+
+					<!-- Gallery -->
+					<div class="gallery_slider_container">
+						<div class="owl-carousel owl-theme gallery_slider">
+							
+							<!-- Slide -->
+							<div class="gallery_slide" data-toggle="modal" data-target="#basicExample">
+								<img src="static/assets/gallery_1.jpeg" alt="">
+								<div class="gallery_overlay">
+									<div class="text-center d-flex flex-column align-items-center justify-content-center">
+										<a href="#">
+											<span>+</span>
+											<span>See More</span>
+										</a>
+									</div>
+								</div>
+							</div>
+
+							<!-- Slide -->
+							<div class="gallery_slide" data-toggle="modal" data-target="#basicExample">
+								<img src="static/assets/gallery_2.jpg" alt="">
+								<div class="gallery_overlay">
+									<div class="text-center d-flex flex-column align-items-center justify-content-center">
+										<a href="#">
+											<span>+</span>
+											<span>See More</span>
+										</a>
+									</div>
+								</div>
+							</div>
+
+							<!-- Slide -->
+							<div class="gallery_slide" data-toggle="modal" data-target="#basicExample">
+								<img src="static/assets/gallery_3.png" alt="">
+								<div class="gallery_overlay">
+									<div class="text-center d-flex flex-column align-items-center justify-content-center">
+										<a href="#">
+											<span>+</span>
+											<span>See More</span>
+										</a>
+									</div>
+								</div>
+							</div>
+
+							<!-- Slide -->
+							<div class="gallery_slide" data-toggle="modal" data-target="#basicExample">
+								<img src="static/assets/gallery_4.jpeg" alt="">
+								<div class="gallery_overlay">
+									<div class="text-center d-flex flex-column align-items-center justify-content-center">
+										<a href="#">
+											<span>+</span>
+											<span>See More</span>
+										</a>
+									</div>
+								</div>
+							</div>
+
+							<!-- Slide -->
+							<div class="gallery_slide" data-toggle="modal" data-target="#basicExample">
+								<img src="static/assets/gallery_5.jpeg" alt="">
+								<div class="gallery_overlay">
+									<div class="text-center d-flex flex-column align-items-center justify-content-center">
+										<a href="#">
+											<span>+</span>
+											<span>See More</span>
+										</a>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Modal Carousel -->
+	<div class="modal fade" id="basicExample" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
+					<div class="carousel-inner" role="listbox">
+						<div class="carousel-item active">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_1.jpg" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_2.jpeg" alt="Second slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_3.jpeg" alt="Third slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_4.jpg" alt="Forth slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_5.jpg" alt="Fifth slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_6.jpg" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_7.jpg" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_8.jpg" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_9.jpg" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_10.jpeg" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_11.jpeg" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_12.jpeg" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_12.jpeg" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_13.jpeg" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_14.jpeg" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_15.jpeg" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_16.jpeg" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_17.jpeg" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_18.jpeg" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_19.jpeg" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_20.jpg" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_21.jpg" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_22.jpeg" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_23.jpg" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_24.jpg" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_25.jpg" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_26.jpg" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_27.jpg" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_28.jpeg" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_29.png" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_30.png" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_31.png" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_32.png" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_33.jpeg" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_34.jpeg" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_35.jpeg" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_36.jpg" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_37.jpeg" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_38.jpg" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_39.jpg" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_40.jpg" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_41.jpg" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_42.jpeg" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_43.jpg" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_44.jpeg" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-100" src="static/assets/beach_house_pictures/gallery_45.jpg" alt="First slide">
+						</div>
+					</div>
+					<a class="carousel-control-prev" href="#carousel-example-1z" role="button" data-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="sr-only">Previous</span>
+					</a>
+					<a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="sr-only">Next</span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Footer -->
+
+	<footer class="footer">
+		<div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="static/assets/footer.jpg" data-speed="0.8"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="footer_logo text-center">
+						<a href="#"><img src="static/assets/logo.png" alt=""></a>
+					</div>
+					<div class="footer_content">
+						<div class="row">
+							<div class="col-lg-4 footer_col">
+								<div class="footer_info d-flex flex-column align-items-lg-end align-items-center justify-content-start">
+									<div class="text-center">
+										<div>Phone:</div>
+										<div>1-337-254-1823</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-4 footer_col">
+								<div class="footer_info d-flex flex-column align-items-center justify-content-start">
+									<div class="text-center">
+										<div>Address:</div>
+										<div>Main Str, no 23, New York</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-4 footer_col">
+								<div class="footer_info d-flex flex-column align-items-lg-start align-items-center justify-content-start">
+									<div class="text-center">
+										<div>Mail:</div>
+										<div>denalandry@outlook.com</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="footer_bar text-center"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	 
+</div>
+
+<!-- custom scripts -->
+<script src="static/public/jquery-3.3.1.min.js"></script>
+<script src="static/public/bootstrap-4.1.2/popper.js"></script>
+<script src="static/public/bootstrap-4.1.2/bootstrap.min.js"></script>
+<script src="static/public/greensock/TweenMax.min.js"></script>
+<script src="static/public/greensock/TimelineMax.min.js"></script>
+<script src="static/public/scrollmagic/ScrollMagic.min.js"></script>
+<script src="static/public/greensock/animation.gsap.min.js"></script>
+<script src="static/public/greensock/ScrollToPlugin.min.js"></script>
+<script src="static/public/OwlCarousel2-2.3.4/owl.carousel.js"></script>
+<script src="static/public/easing/easing.js"></script>
+<script src="static/public/progressbar/progressbar.min.js"></script>
+<script src="static/public/parallax-js-master/parallax.min.js"></script>
+<script src="static/public/jquery-datepicker/jquery-ui.js"></script>
+<script src="static/public/custom.js"></script>
+
+</body>
+</html>
