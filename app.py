@@ -1,9 +1,10 @@
 from flask import Flask, session, redirect, url_for, escape, request, render_template
+import requests
 import json
 import os
 app = Flask(__name__)
 
-# Site root url
+# Page GET Requests
 @app.route('/')
 def index():
 	return render_template('index.html')
@@ -27,6 +28,20 @@ def rooms():
 @app.route('/elements')
 def elements():
 	return render_template('elements.html')
+
+
+# Data POST Requests
+@app.route('/send_contact', methods=['POST'])
+def send_contact():
+	# Gather Data
+	contactInfo = request.json
+
+	# Process Data
+	contactServiceUrl = "http://localhost:5001/contact"
+	requests.post(contactServiceUrl,json=contactInfo)
+
+	# Return status code
+	return "200"
 
 
 # Run app on 0.0.0.0:5000

@@ -11,14 +11,14 @@
 5. Init Date Picker
 6. Init Custom Select
 7. Init Google Map
-
+8. Init Contact Information POST
 
 ******************************/
 
 $(document).ready(function()
 {
 	"use strict";
-
+	
 	/* 
 
 	1. Vars and Inits
@@ -32,7 +32,8 @@ $(document).ready(function()
 	initSearch();
 	initDatePicker();
 	initCustomSelect();
-	initGoogleMap();
+	//initGoogleMap();
+	initContactInformationPOST();
 
 	$(window).on('resize', function()
 	{
@@ -285,4 +286,42 @@ $(document).ready(function()
 		});
 	}
 
+	/* 
+
+	8. Init Contact Information POST
+
+	*/
+
+	function initContactInformationPOST() 
+	{
+		var submitButton = $('#submit_button');
+		var name = $('#contact_name');
+		var email = $('#contact_email');
+		var subject = $('#contact_email_subject');
+		var message = $('#contact_email_message');
+
+		submitButton.on('click', function() {
+			
+			var contact_data = {
+				'name': name.val(),
+				'email': email.val(),
+				'subject': subject.val(),
+				'message': message.val()
+			};
+			
+			$.ajax({
+				url: '/send_contact',
+				type: 'post',
+				datatype: 'json',
+				contentType: 'application/json',
+				data: JSON.stringify(contact_data),
+				success: function(data) {
+					console.log(data);
+				},
+				error: function(xhr) {
+					console.log(xhr)
+				}
+			});
+		});
+	}
 });
