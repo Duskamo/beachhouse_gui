@@ -1,6 +1,5 @@
-from flask import Flask, session, redirect, url_for, escape, request, render_template
+from flask import Flask, request, render_template
 import requests
-import json
 import os
 app = Flask(__name__)
 
@@ -21,6 +20,10 @@ def blog():
 def contact():
 	return render_template('contact.html')
 
+@app.route('/booking')
+def booking():
+	return render_template('booking.html')
+
 @app.route('/rooms')
 def rooms():
 	return render_template('rooms.html')
@@ -29,8 +32,20 @@ def rooms():
 def elements():
 	return render_template('elements.html')
 
+@app.route('/calendar')
+def calendar():
+	return render_template('fullcalendar.html')
 
-# Data POST Requests
+
+# Data Requests
+@app.route('/get_calendar_info', methods=['GET'])
+def get_calendar_info():
+	# Fetch and return booked dates from booking microservice
+	bookingServiceUrl = "http://localhost:5002/get_calendar_dates"
+	bookingDates = requests.get(bookingServiceUrl)
+
+	return bookingDates.text
+
 @app.route('/send_contact', methods=['POST'])
 def send_contact():
 	# Gather Data
