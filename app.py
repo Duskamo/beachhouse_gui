@@ -3,7 +3,7 @@ import requests
 import os
 app = Flask(__name__)
 
-# Page GET Requests
+# Page Requests
 @app.route('/')
 def index():
 	return render_template('index.html')
@@ -38,6 +38,14 @@ def calendar():
 
 
 # Data Requests
+@app.route('/request_calendar_info', methods=['GET']) # Dispatched on CRON Service
+def request_calendar_info():
+	# Fetch and return booked dates from booking microservice
+	bookingServiceUrl = "http://localhost:5002/request_calendar_dates"
+	bookingDates = requests.get(bookingServiceUrl)
+
+	return bookingDates.text
+
 @app.route('/get_calendar_info', methods=['GET'])
 def get_calendar_info():
 	# Fetch and return booked dates from booking microservice
@@ -57,6 +65,18 @@ def send_contact():
 
 	# Return status code
 	return "200"
+
+@app.route('/book_through_index', methods=['POST'])
+def book_through_index():
+	# Gather booking request data
+	bookingInfo = request.json
+
+	# Process Data
+	bookingServiceUrl = "http://localhost:5002/booking_availability"
+	resp = requests.post(bookingServiceUrl,json=bookingInfo)
+
+	# Return user to booking page with dates pre-booked if available, if not then return error message to user ***HERE***
+	return resp.text
 
 
 # Run app on 0.0.0.0:5000
