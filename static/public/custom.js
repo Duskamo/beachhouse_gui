@@ -14,6 +14,7 @@
 8. Init Rooms Slider
 9. Init Discover Slider
 10. Init Testimonials Slider
+11. Init Book Through Index Call
 
 
 ******************************/
@@ -37,6 +38,7 @@ $(document).ready(function()
 	initRoomsSlider();
 	initDiscoverSlider();
 	initTestSlider();
+	initBookThroughIndexCall();
 
 	$(window).on('resize', function()
 	{
@@ -151,7 +153,7 @@ $(document).ready(function()
 
 	/* 
 
-	6. Init Date Picker
+	6. Init Custom Select
 
 	*/
 
@@ -362,4 +364,42 @@ $(document).ready(function()
 		}
 	}
 
+	/* 
+
+	11. Init Book Through Index Call
+
+	*/
+
+	function initBookThroughIndexCall()
+	{
+		var bookingButton = $("#booking_submit");
+
+		var dp1 = $("#dp1");
+		var dp2 = $("#dp2");
+		var s1 = $("#s1");
+		var s2 = $("#s2");
+
+		bookingButton.on("click", function() {
+			var bookingData = {
+				"startDate" : dp1.val(),
+				"endDate" : dp2.val(),
+				"adultCount" : s1.val(),
+				"childrenCount" : s2.val()
+			};
+			
+			$.ajax({
+				url: '/book_through_index',
+				type: 'post',
+				datatype: 'json',
+				contentType: 'application/json',
+				data: JSON.stringify(bookingData),
+				success: function(data) {
+					console.log(data);
+				},
+				error: function(xhr) {
+					console.log(xhr)
+				}
+			});
+		});
+	}
 });
