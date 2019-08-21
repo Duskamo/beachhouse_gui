@@ -395,6 +395,7 @@ $(document).ready(function()
 				data: JSON.stringify(bookingData),
 				success: function(data) {
 					console.log(data);
+					window.location.href = data;
 				},
 				error: function(xhr) {
 					console.log(xhr)

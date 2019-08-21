@@ -16,6 +16,12 @@
 <link rel="stylesheet" type="text/css" href="static/public/about_responsive.css">
 <link href='static/assets/calendar_assets/css/fullcalendar.css' rel='stylesheet' />
 <link href='static/assets/calendar_assets/css/fullcalendar.print.css' rel='stylesheet' media='print' />
+<link href="static/public/wizard/dist/css/smart_wizard.css" rel="stylesheet" type="text/css" />
+<link href="static/public/wizard/dist/css/smart_wizard_theme_circles.css" rel="stylesheet" type="text/css" />
+<link href="static/public/wizard/dist/css/smart_wizard_theme_arrows.css" rel="stylesheet" type="text/css" />
+<link href="static/public/wizard/dist/css/smart_wizard_theme_dots.css" rel="stylesheet" type="text/css" />
+<link href="static/public/wizard/wizard.css" rel="stylesheet" type="text/css" />
+
 <style>
 	
 	body {
@@ -179,13 +185,13 @@
 			<div class="row">
 				<div class="col">
 					<div class="booking_container d-flex flex-row align-items-end justify-content-start">
-						<form action="#" class="booking_form">
+						<div class="booking_form">
 							<div class="booking_form_container d-flex flex-lg-row flex-column align-items-start justify-content-start flex-wrap">
 								<div class="booking_form_inputs d-flex flex-row align-items-start justify-content-between flex-wrap">
-									<div class="booking_dropdown"><input type="text" class="datepicker booking_input booking_input_a booking_in" placeholder="Check in" required="required"></div>
-									<div class="booking_dropdown"><input type="text" class="datepicker booking_input booking_input_a booking_out" placeholder="Check out" required="required"></div>
+									<div class="booking_dropdown"><input type="text" id="dp1" class="datepicker booking_input booking_input_a booking_in" placeholder="Check in" required="required"></div>
+									<div class="booking_dropdown"><input type="text" id="dp2" class="datepicker booking_input booking_input_a booking_out" placeholder="Check out" required="required"></div>
 									<div class="custom-select">
-										<select>
+										<select id="s2">
 											<option value="0">Adults</option>
 											<option value="1">1</option>
 											<option value="2">2</option>
@@ -195,7 +201,7 @@
 										</select>
 									</div>
 									<div class="custom-select">
-										<select>
+										<select id="s2">
 											<option value="0">Children</option>
 											<option value="1">1</option>
 											<option value="2">2</option>
@@ -205,9 +211,9 @@
 										</select>
 									</div>
 								</div>
-								<button class="booking_form_button ml-lg-auto">book now</button>
+								<button id="booking_submit" class="booking_form_button ml-lg-auto">book now</button>
 							</div>
-						</form>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -225,7 +231,213 @@
 				<div style='clear:both'></div>	
 			</div>
 		</div>
-	</div>
+	</div>		
+
+<!-- Wizard/Modal Code -->
+	<button class="btn btn-primary" id="modalButton" data-toggle="modal" data-target="#exampleModal">
+          Click to launch Smart Wizard modal
+        </button>
+
+<div class="container">
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Smart Wizard modal</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+
+              <!-- Smart Wizard HTML -->
+              <div id="smartwizard">
+                  <ul>
+                      <li><a href="#step-1">Step Title<br /><small>Step description</small></a></li>
+                      <li><a href="#step-2">Step Title<br /><small>Step description</small></a></li>
+                      <li><a href="#step-3">Step Title<br /><small>Step description</small></a></li>
+                      <li><a href="#step-4">Step Title<br /><small>Step description</small></a></li>
+                  </ul>
+
+                  <div>
+                      <div id="step-1" class="">
+                          <div class="container">
+				<h2 class="modal-title" id="title1">Rental Review</h2>
+				<hr>
+				<div class="content-section">
+					<div class="row">
+						<div class="col-md-4">
+							<input type="text" class="form-control" placeholder="Arrive: 8/11/2019">
+						</div>
+						<div class="col-md-4">
+							<input type="text" class="form-control" placeholder="Depart: 8/14/2019">
+						</div>
+					</div>
+					<div class="row row-buffer">
+						<div class="col-md-4">
+							<input type="email" class="form-control" placeholder="Nights: 3">
+						</div>
+						<div class="col-md-4">
+							<input type="phone" class="form-control" placeholder="Guest: 4">
+						</div>
+					</div>
+				</div>
+				<div class="content-section">
+					<div class="row">
+						<div class="col-md-8">
+							<div class="d-inline">198.33 x 6 nights</div> 
+							<div class="d-inline float-right">$1190.00</div><br />
+							<div class="d-inline">Cleaning fee</div> 
+							<div class="d-inline float-right">$125.00</div><br />
+							<div class="d-inline">Service fee</div> 
+							<div class="d-inline float-right">$129.00</div><br /> 
+							<div class="d-inline">Lodging Tax</div> 
+							<div class="d-inline float-right">$157.80</div>	
+						</div>
+					</div>
+				</div>
+				<hr>
+				<div class="content-section">
+					<div class="row">
+						<div class="col-md-8">
+							<div class="d-inline"><strong>Your payment is</strong></div> 
+							<div class="d-inline float-right"><strong>$1601.80</strong></div><br />
+						</div>
+					</div>
+				</div>
+			</div>
+                      </div>
+                      <div id="step-2" class="">
+                          <div class="container">
+				<h2 class="modal-title" id="title2">Begin your booking</h2>
+				<hr>
+				<h3>Book with confidence. Guaranteed.</h3>
+				Your covered when you book through DLandry Beach Houses.<br /><br />
+				<strong>Act fast!</strong> Price and availability may change.<br />
+				<strong>Free cancelation</strong> until the day before arrival.
+				<hr>
+				<h3>Enter contact information</h3>
+				<div class="row">
+					<div class="col-md-4">
+						<input type="text" class="form-control" id="firstName" placeholder="Enter First Name" required>
+					</div>
+					<div class="col-md-4">
+						<input type="text" class="form-control" id="lastName" placeholder="Enter Last Name">
+					</div>
+				</div>
+				<div class="row row-buffer">
+					<div class="col-md-4">
+						<input type="email" class="form-control" id="email" placeholder="Enter email">
+					</div>
+					<div class="col-md-4">
+						<input type="phone" class="form-control" id="phone" placeholder="Enter Phone">
+					</div>
+				</div>
+			</div>
+                      </div>
+                      <div id="step-3" class="">
+                          <div class="container">
+				<h2 class="modal-title" id="title3">Review rules & policies</h2>
+				<hr>
+				<h3>Book with confidence. Guaranteed.</h3>
+				<div class="content-section">
+					<div class="d-inline inline-buffer"><strong>Check-in:</strong> 2:00pm</div> 
+					<div class="d-inline"><strong>Check-out:</strong> 11:00am</div> 
+				</div>
+				<div class="content-section">
+					<strong>Minimum age of primary renter:</strong> 25
+				</div>
+				<div class="content-section">
+					<strong>Max guests:</strong> 6
+				</div>
+				<div class="content-section">
+					<h4>Owner's Cancelation Policy</h4>
+					<p>Cancel for free up to two weeks before your trip. Up to one week before your trip for a 50% refund.</p>
+				</div>
+				<div class="content-section">
+					<h4>Damage Policy</h4>
+					<p>You will be responsible for any damages cause to the property by you or your party.</p>
+				</div>
+				<hr>
+				<h3>House Rules</h3>
+				<div class="content-section">
+					<strong>No parties/events</strong><br />
+					<strong>No smoking</strong><br />
+					<strong>No pets</strong><br />
+					<strong>Children allowed</strong>
+				</div>
+				<div class="form-check">
+				  <input class="form-check-input" type="checkbox" value="" id="cb">
+				  <label class="form-check-label" for="defaultCheck1">
+				    I have read and agree to comply with all the rental policies and terms.
+				  </label>
+				</div>
+			</div>
+                      </div>
+                      <div id="step-4" class="">
+                          <div class="container">
+				<h2 class="modal-title" id="title4">Enter payment information</h2>
+				<div class="content-section">
+					<div class="d-inline inline-buffer text-success"><strong>We use secure transmission</strong></div> 
+					<div class="d-inline text-success"><strong>We protect your personal information</strong></div> 
+				</div>
+				<div class="row">
+					<div class="col-md-8">
+						<input type="text" class="form-control" id="cardNumber" placeholder="Card Number">
+					</div>
+				</div>
+				<div class="row row-buffer">
+					<div class="col-md-4">
+						<input type="text" class="form-control" id="expDate" placeholder="Exp Date">
+					</div>
+					<div class="col-md-4">
+						<input type="text" class="form-control" id="securityCode" placeholder="Security Code">
+					</div>
+				</div>
+				<div class="row row-buffer">
+					<div class="col-md-4">
+						<input type="email" class="form-control" id="firstNameOnCard" placeholder="First name on card">
+					</div>
+					<div class="col-md-4">
+						<input type="phone" class="form-control" id="lastNameOnCard" placeholder="Last name on card">
+					</div>
+				</div>	
+				<hr>
+				<h3>Billing Address</h3>
+				<div class="row row-buffer">
+					<div class="col-md-4">
+						<input type="text" class="form-control" id="street" placeholder="Street">
+					</div>
+					<div class="col-md-4">
+						<input type="text" class="form-control" id="country" placeholder="Country">
+					</div>
+				</div>
+				<div class="row row-buffer">
+					<div class="col-md-2">
+						<input type="email" class="form-control" id="city" placeholder="City">
+					</div>
+					<div class="col-md-4">
+						<input type="phone" class="form-control" id="state" placeholder="State">
+					</div>
+					<div class="col-md-2">
+						<input type="phone" class="form-control" id="zip" placeholder="ZIP Code">
+					</div>
+				</div><br />
+				<p><strong>When you book this property, your reservation will be confirmed instantly.</strong></p>
+			</div>
+                      </div>
+                  </div>
+              </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
 	<!-- Footer -->
 
@@ -275,6 +487,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 </div>
 
 <script src="static/public/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="static/public/wizard/dist/js/jquery.smartWizard.min.js"></script>
+<script type="text/javascript" src="static/public/wizard/wizard.js"></script>
 <script src="static/public/bootstrap-4.1.2/popper.js"></script>
 <script src="static/public/bootstrap-4.1.2/bootstrap.min.js"></script>
 <script src="static/public/greensock/TweenMax.min.js"></script>

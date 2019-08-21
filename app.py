@@ -66,6 +66,21 @@ def send_contact():
 	# Return status code
 	return "200"
 
+@app.route('/book', methods=['POST'])
+def book():
+	# Gather booking request data
+	bookingInfo = request.json
+
+	# Process Data
+	bookingServiceUrl = "http://localhost:5002/booking_availability"
+	resp = requests.post(bookingServiceUrl,json=bookingInfo)
+
+	# Return user to booking page with dates pre-booked if available, if not then return error message to user
+	if (resp.text == "available"):
+		return "booking"
+	else:
+		return "booking"
+
 @app.route('/book_through_index', methods=['POST'])
 def book_through_index():
 	# Gather booking request data
@@ -75,10 +90,31 @@ def book_through_index():
 	bookingServiceUrl = "http://localhost:5002/booking_availability"
 	resp = requests.post(bookingServiceUrl,json=bookingInfo)
 
-	# Return user to booking page with dates pre-booked if available, if not then return error message to user ***HERE***
-	return resp.text
+	# Return user to booking page with dates pre-booked if available, if not then return error message to user 
+	#return resp.text
+
+	print(resp.text)
+	if (resp.text == "available"):
+		return "booking"
+	else:
+		return "/"
+
+@app.route('/book_payment', methods=['POST'])
+def book_payment():
+	# Gather booking request data
+	bookingInfo = request.json
+
+	# Process Data
+	#bookingServiceUrl = "http://localhost:5002/booking_availability"
+	#resp = requests.post(bookingServiceUrl,json=bookingInfo)
+	print(bookingInfo['paymentInfo']['cardNumber'])
+	
 
 
+	# Return user to booking page with dates pre-booked if available, if not then return error message to user
+	return "200"
+
+	
 # Run app on 0.0.0.0:5000
 if __name__ == "__main__":
 	port = int(os.environ.get('PORT', 5000))

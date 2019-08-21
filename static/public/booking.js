@@ -12,6 +12,7 @@
 6. Init Custom Select
 7. Init Milestones
 8. Init Calendar
+9. Init Book Call
 
 
 ******************************/
@@ -34,7 +35,7 @@ $(document).ready(function()
 	initDatePicker();
 	initCustomSelect();
 	initMilestones();
-	//initCalendar();
+	initBookCall();
 
 	$(window).on('resize', function()
 	{
@@ -292,11 +293,45 @@ $(document).ready(function()
 
 	/* 
 
-	8. Init Calendar
+	9. Init Book Call
 
 	*/
-	
-	
+
+	function initBookCall()
+	{
+		var bookingButton = $("#booking_submit");
+
+		var dp1 = $("#dp1");
+		var dp2 = $("#dp2");
+		var s1 = $("#s1");
+		var s2 = $("#s2");
+
+		var modalButton = $("#modalButton");
+
+		bookingButton.on("click", function() {
+			var bookingData = {
+				"startDate" : dp1.val(),
+				"endDate" : dp2.val(),
+				"adultCount" : s1.val(),
+				"childrenCount" : s2.val()
+			};
+			
+			$.ajax({
+				url: '/book',
+				type: 'post',
+				datatype: 'json',
+				contentType: 'application/json',
+				data: JSON.stringify(bookingData),
+				success: function(data) {
+					console.log(data);
+					modalButton.click();
+				},
+				error: function(xhr) {
+					console.log(xhr)
+				}
+			});
+		});
+	}
 });
 
 

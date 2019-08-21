@@ -15,6 +15,7 @@
 8. Offering
 9. Discover
 10. Footer
+11. Modal
 
 
 ******************************/
@@ -1115,5 +1116,13 @@ section
 	font-size: 15px;
 	font-weight: 400;
 	color: rgba(255,255,255,0.15);
+}
+
+/*********************************
+11. Modal
+*********************************/
+
+#modalButton{
+	display:none;
 }
 
