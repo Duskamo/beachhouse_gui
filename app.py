@@ -104,14 +104,19 @@ def book_payment():
 	# Gather booking request data
 	bookingInfo = request.json
 
-	# Process Data
-	#bookingServiceUrl = "http://localhost:5002/booking_availability"
-	#resp = requests.post(bookingServiceUrl,json=bookingInfo)
-	print(bookingInfo['paymentInfo']['cardNumber'])
+	# Send Data to payment microservice for scheduling payment to client
+	#paymentInfo = bookingInfo['paymentInfo']
+	#paymentServiceUrl = "http://localhost:5003/pay"
+	#resp = requests.post(paymentServiceUrl,json=paymentInfo)
+
+	# If payment was successful, store booking information to database
+	isPaymentSuccessful = "Success"
+	if (isPaymentSuccessful == "Success"):
+		bookingServiceUrl = "http://localhost:5002/save_booked_information"
+		resp = requests.post(bookingServiceUrl,json=bookingInfo)
 	
 
-
-	# Return user to booking page with dates pre-booked if available, if not then return error message to user
+	# Return user to booking page with dates booked and successful confirmation message
 	return "200"
 
 	
