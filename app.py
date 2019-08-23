@@ -105,9 +105,9 @@ def book_payment():
 	bookingInfo = request.json
 
 	# Send Data to payment microservice for scheduling payment to client
-	#paymentInfo = bookingInfo['paymentInfo']
-	#paymentServiceUrl = "http://localhost:5003/pay"
-	#resp = requests.post(paymentServiceUrl,json=paymentInfo)
+	paymentInfo = bookingInfo['paymentInfo']
+	paymentServiceUrl = "http://localhost:5003/pay"
+	resp = requests.post(paymentServiceUrl,json=paymentInfo)
 
 	# If payment was successful, store booking information to database
 	isPaymentSuccessful = "Success"
