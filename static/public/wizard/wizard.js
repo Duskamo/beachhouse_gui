@@ -150,13 +150,13 @@ $(document).ready(function(){
 					      errorElement.textContent = result.error.message;
 					    } else {
 					      sendDataToBackend(result.token);
-					      //alert(result.token.id);
 					    }
 					  });
 
 					// Close Modal
 					if (isValidated) {
 						$("#modalButton").click();
+						//location.reload();
 					}
 					
 					});
@@ -308,12 +308,12 @@ $(document).ready(function(){
 				"email":$("#email").val(),
 				"phone":$("#phone").val()
 			},
-			"termsCB":$("#cb").val(),
+			"termsCB":$("#cb").is(":checked") ? 1 : 0,
 			"paymentInfo": {
 				"tokenId":token.id,
 				"firstNameOnCard":$("#firstNameOnCard").val(),
 				"lastNameOnCard":$("#lastNameOnCard").val(),
-				"paymentAmount":"60000",
+				"paymentAmount":$('#totalPayment').text(),
 				"receiptEmail":$("#email").val()
 			},
 			"billingInfo": {
@@ -322,6 +322,12 @@ $(document).ready(function(){
 				"city":$("#city").val(),
 				"state":$("#state").val(),
 				"zip":$("#zip").val()
+			}, 
+			"rentalInfo": {
+				"arrivalDate":$("#dp1").val(),
+				"departDate":$("#dp2").val(),
+				"nightsCount":days_between(new Date($("#dp2").val()),new Date($("#dp1").val())),
+				"guestCount":(parseInt($("#s2").val()) + parseInt($("#s1").val()))
 			}				
 		};
 
@@ -333,11 +339,61 @@ $(document).ready(function(){
 			data: JSON.stringify(bookingInfo),
 			success: function(data) {
 				console.log(data);
+				if (data == "failure") {
+					updateGUIFailure();
+				} else {
+					updateGUISuccess();
+				}
+				
 			},
 			error: function(xhr) {
-				console.log(xhr)
+				console.log(xhr);
+				updateGUIFailure();
 			}
 		});
 	}
 
+	function days_between(date1, date2) {
+
+	    // The number of milliseconds in one day
+	    var ONE_DAY = 1000 * 60 * 60 * 24;
+
+	    // Convert both dates to milliseconds
+	    var date1_ms = date1.getTime();
+	    var date2_ms = date2.getTime();
+
+	    // Calculate the difference in milliseconds
+	    var difference_ms = Math.abs(date1_ms - date2_ms);
+
+	    // Convert back to days and return
+	    return Math.round(difference_ms/ONE_DAY);
+
+	}
+
+	function updateGUISuccess() {
+		// Show successful validation message to client
+		localStorage.setItem("bookingSuccessMessage",true);
+
+		// Refresh page from server to update calendar with new dates
+		location.reload(true);		
+	}
+
+	function updateGUIFailure() {
+		// Show failure validation message to client
+		localStorage.setItem("bookingFailureMessage",true);
+
+		// Refresh page from server to update calendar with new dates
+		location.reload(true);		
+	}
+
+	function validationMessageHandler() {
+		if (localStorage.getItem('bookingSuccessMessage')) {
+			$('#bookingSuccessMessage').css('display','block');
+			localStorage.clear();
+		} else if (localStorage.getItem('bookingFailureMessage')) {
+			$('#bookingFailureMessage').css('display','block');
+			localStorage.clear();
+		}
+	}
+	validationMessageHandler();
 });

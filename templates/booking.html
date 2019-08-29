@@ -192,7 +192,7 @@
 									<div class="booking_dropdown"><input type="text" id="dp1" class="datepicker booking_input booking_input_a booking_in" placeholder="Check in" required="required"></div>
 									<div class="booking_dropdown"><input type="text" id="dp2" class="datepicker booking_input booking_input_a booking_out" placeholder="Check out" required="required"></div>
 									<div class="custom-select">
-										<select id="s2">
+										<select id="s1">
 											<option value="0">Adults</option>
 											<option value="1">1</option>
 											<option value="2">2</option>
@@ -225,6 +225,14 @@
 	
 	<div class="intro">
 		<div class="container">
+			<div class="alert alert-success alert-dismissible" id="bookingSuccessMessage" style="display: none;">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong>Congradulations!</strong> Your dates at DLandry Beach Houses have been booked.
+			</div>
+			<div class="alert alert-danger alert-dismissible" id="bookingFailureMessage" style="display: none;">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong>Warning!</strong> Your dates could not be booked. Please retry or contact us through our contact page.
+			</div>
 			<div id='wrap'>
 
 				<div id='calendar'></div>
@@ -255,10 +263,10 @@
               <!-- Smart Wizard HTML -->
               <div id="smartwizard">
                   <ul>
-                      <li><a href="#step-1">Step Title<br /><small>Step description</small></a></li>
-                      <li><a href="#step-2">Step Title<br /><small>Step description</small></a></li>
-                      <li><a href="#step-3">Step Title<br /><small>Step description</small></a></li>
-                      <li><a href="#step-4">Step Title<br /><small>Step description</small></a></li>
+                      <li><a href="#step-1">Review<br /><small>Step description</small></a></li>
+                      <li><a href="#step-2">Contact Information<br /><small>Step description</small></a></li>
+                      <li><a href="#step-3">Rules & Policies<br /><small>Step description</small></a></li>
+                      <li><a href="#step-4">Payment<br /><small>Step description</small></a></li>
                   </ul>
 
                   <div>
@@ -269,32 +277,32 @@
 				<div class="content-section">
 					<div class="row">
 						<div class="col-md-4">
-							<input type="text" class="form-control" placeholder="Arrive: 8/11/2019">
+							<input type="text" class="form-control" id="arrivalDate">
 						</div>
 						<div class="col-md-4">
-							<input type="text" class="form-control" placeholder="Depart: 8/14/2019">
+							<input type="text" class="form-control"id="departDate">
 						</div>
 					</div>
 					<div class="row row-buffer">
 						<div class="col-md-4">
-							<input type="email" class="form-control" placeholder="Nights: 3">
+							<input type="email" class="form-control" id="nightsCount">
 						</div>
 						<div class="col-md-4">
-							<input type="phone" class="form-control" placeholder="Guest: 4">
+							<input type="phone" class="form-control" id="guestCount">
 						</div>
 					</div>
 				</div>
 				<div class="content-section">
 					<div class="row">
 						<div class="col-md-8">
-							<div class="d-inline">198.33 x 6 nights</div> 
-							<div class="d-inline float-right">$1190.00</div><br />
+							<div class="d-inline" id="paymentTitle"></div> 
+							<div class="d-inline float-right" id="calculatedPayment"></div><br />
 							<div class="d-inline">Cleaning fee</div> 
-							<div class="d-inline float-right">$125.00</div><br />
+							<div class="d-inline float-right" id="cleaningFee"></div><br />
 							<div class="d-inline">Service fee</div> 
-							<div class="d-inline float-right">$129.00</div><br /> 
+							<div class="d-inline float-right" id="serviceFee"></div><br /> 
 							<div class="d-inline">Lodging Tax</div> 
-							<div class="d-inline float-right">$157.80</div>	
+							<div class="d-inline float-right"id="lodgingFee"></div>	
 						</div>
 					</div>
 				</div>
@@ -303,7 +311,7 @@
 					<div class="row">
 						<div class="col-md-8">
 							<div class="d-inline"><strong>Your payment is</strong></div> 
-							<div class="d-inline float-right"><strong>$1601.80</strong></div><br />
+							<div class="d-inline float-right">$<strong id="totalPayment"></strong></div><br />
 						</div>
 					</div>
 				</div>
@@ -388,21 +396,6 @@
 						<div id="card-element"></div>
 					</div>
 				</div>
-				<!--
-				<div class="row">
-					<div class="col-md-8">
-						<input type="text" class="form-control" id="cardNumber" placeholder="Card Number">
-					</div>
-				</div>
-				<div class="row row-buffer">
-					<div class="col-md-4">
-						<input type="text" class="form-control" id="expDate" placeholder="Exp Date">
-					</div>
-					<div class="col-md-4">
-						<input type="text" class="form-control" id="securityCode" placeholder="Security Code">
-					</div>
-				</div>
-				-->
 				<div class="row row-buffer">
 					<div class="col-md-4">
 						<input type="email" class="form-control" id="firstNameOnCard" placeholder="First name on card">
@@ -496,7 +489,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 <script src="static/public/jquery-3.3.1.min.js"></script>
 <script src="https://js.stripe.com/v3/"></script>
-<!-- <script type="text/javascript" src="static/public/stripes/stripes.js"></script> -->
 <script type="text/javascript" src="static/public/wizard/dist/js/jquery.smartWizard.min.js"></script>
 <script type="text/javascript" src="static/public/wizard/wizard.js"></script>
 <script src="static/public/bootstrap-4.1.2/popper.js"></script>

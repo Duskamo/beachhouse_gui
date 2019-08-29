@@ -19,13 +19,27 @@ $j(document).ready(function()
 	
 	function initCalendarWithData(data) {
 		// Parse data and create calendarEvents list
-		var years = parseDate('y',data);
-		var months = parseDate('m',data);
-		var days = parseDate('d',data);
+		var bookedDates = JSON.parse(data['bookingDates']);
+		var bookingRates = JSON.parse(data['bookingRates']);
+
+		var years = parseDate('y',bookedDates);
+		var months = parseDate('m',bookedDates);
+		var days = parseDate('d',bookedDates);
 
 		var calendarEvents = [];
 
-		for (var i = 0; i < data.length; i++) {
+		console.log(bookingRates);
+
+		for (var i = 0; i < bookingRates.length; i++) {
+			calendarEvents.push({
+				id: 999,
+				title: '$' + bookingRates[i].rate,
+				start: new Date(bookingRates[i].date),
+				end: new Date(bookingRates[i].date)
+			});
+		}
+
+		for (var i = 0; i < bookedDates.length; i++) {
 			calendarEvents.push({
 				id: 999,
 				title: 'Booked',
@@ -33,10 +47,6 @@ $j(document).ready(function()
 				end: new Date(years[i].end, months[i].end, days[i].end),
 				className: 'success'
 			});
-		}
-
-		for (var i = 0; i < calendarEvents.length; i++) {
-			console.log(calendarEvents[i].start + " : " + calendarEvents[i].end);
 		}
 		
 		/*  className colors

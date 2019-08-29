@@ -41,18 +41,27 @@ def calendar():
 @app.route('/request_calendar_info', methods=['GET']) # Dispatched on CRON Service
 def request_calendar_info():
 	# Fetch and return booked dates from booking microservice
-	bookingServiceUrl = "http://localhost:5002/request_calendar_dates"
-	bookingDates = requests.get(bookingServiceUrl)
+	bookingDatesServiceUrl = "http://localhost:5002/request_calendar_dates"
+	bookingDates = requests.get(bookingDatesServiceUrl)
 
 	return bookingDates.text
 
 @app.route('/get_calendar_info', methods=['GET'])
 def get_calendar_info():
 	# Fetch and return booked dates from booking microservice
-	bookingServiceUrl = "http://localhost:5002/get_calendar_dates"
-	bookingDates = requests.get(bookingServiceUrl)
+	bookingDatesServiceUrl = "http://localhost:5002/get_reserved_dates"
+	bookingDates = requests.get(bookingDatesServiceUrl)
 
-	return bookingDates.text
+	# Fetch and return rates for non-booked dates from booking microservice
+	bookingRatesServiceUrl = "http://localhost:5002/get_rates_by_date"
+	bookingRates = requests.get(bookingRatesServiceUrl)
+
+	calendarDates = {
+		'bookingDates':bookingDates.text,
+		'bookingRates':bookingRates.text
+	}
+
+	return calendarDates
 
 @app.route('/send_contact', methods=['POST'])
 def send_contact():
@@ -108,16 +117,24 @@ def book_payment():
 	paymentInfo = bookingInfo['paymentInfo']
 	paymentServiceUrl = "http://localhost:5003/pay"
 	resp = requests.post(paymentServiceUrl,json=paymentInfo)
+	isPaymentSuccessful = resp.text
 
-	# If payment was successful, store booking information to database
-	isPaymentSuccessful = "Success"
+	# If payment was successful
 	if (isPaymentSuccessful == "Success"):
-		bookingServiceUrl = "http://localhost:5002/save_booked_information"
-		resp = requests.post(bookingServiceUrl,json=bookingInfo)
-	
+		# Store newly booked dates to database
+		bookingDatabaseServiceUrl = "http://localhost:5002/save_booked_information_to_database"
+		resp = requests.post(bookingDatabaseServiceUrl,json=bookingInfo)
 
-	# Return user to booking page with dates booked and successful confirmation message
-	return "200"
+		# Save newly booked dates to Reservations file
+		bookingSaveToReservationsServiceUrl = "http://localhost:5002/save_booked_information_to_reservations"
+		resp = requests.post(bookingSaveToReservationsServiceUrl,json=bookingInfo)
+
+	# Return user to booking page with dates booked and successful confirmation message on success, error message if error
+	if (isPaymentSuccessful == "Success"):
+		rentalInfo = bookingInfo['rentalInfo']
+		return rentalInfo
+	else:
+		return "failure"
 
 	
 # Run app on 0.0.0.0:5000

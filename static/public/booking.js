@@ -324,6 +324,8 @@ $(document).ready(function()
 				data: JSON.stringify(bookingData),
 				success: function(data) {
 					console.log(data);
+					bindDatesToModal();
+					calculatePayment();
 					modalButton.click();
 				},
 				error: function(xhr) {
@@ -331,6 +333,51 @@ $(document).ready(function()
 				}
 			});
 		});
+	}
+
+	function bindDatesToModal() {
+		$('#arrivalDate').attr("placeholder", "Arrive: " + $("#dp1").val());
+		$('#departDate').attr("placeholder", "Depart: " + $("#dp2").val());
+		$('#nightsCount').attr("placeholder", "Nights: " + days_between(new Date($("#dp2").val()),new Date($("#dp1").val())));
+		$('#guestCount').attr("placeholder", "Guest: " + (parseInt($("#s2").val()) + parseInt($("#s1").val())));
+	} 
+
+	function days_between(date1, date2) {
+
+	    // The number of milliseconds in one day
+	    var ONE_DAY = 1000 * 60 * 60 * 24;
+
+	    // Convert both dates to milliseconds
+	    var date1_ms = date1.getTime();
+	    var date2_ms = date2.getTime();
+
+	    // Calculate the difference in milliseconds
+	    var difference_ms = Math.abs(date1_ms - date2_ms);
+
+	    // Convert back to days and return
+	    return Math.round(difference_ms/ONE_DAY);
+	}
+	
+	function calculatePayment() {
+		var nightlyRate = 200.00;
+		var nights = days_between(new Date($("#dp2").val()),new Date($("#dp1").val()));
+		var cleaningRate = 25.00;
+		var serviceRate = 30.00;
+		var lodgingRate = 35.00;
+
+		var paymentTitle = $('#paymentTitle');
+		var calculatedPayment = $('#calculatedPayment');
+		var cleaningFee = $('#cleaningFee');
+		var serviceFee = $('#serviceFee');			
+		var lodgingFee = $('#lodgingFee');
+		var totalPayment = $('#totalPayment');
+
+		paymentTitle.append(nightlyRate + " x " + nights + " nights");
+		calculatedPayment.append("$" + nightlyRate * nights);
+		cleaningFee.append("$" + cleaningRate * nights);
+		serviceFee.append("$" + serviceRate * nights);
+		lodgingFee.append("$" + lodgingRate * nights);
+		totalPayment.append(((nightlyRate * nights) + (cleaningRate * nights) + (serviceRate * nights) + (lodgingRate * nights)));	
 	}
 });
 
