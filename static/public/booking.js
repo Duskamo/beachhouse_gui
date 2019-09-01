@@ -324,9 +324,13 @@ $(document).ready(function()
 				data: JSON.stringify(bookingData),
 				success: function(data) {
 					console.log(data);
-					bindDatesToModal();
-					calculatePayment();
-					modalButton.click();
+					if (data == "Success") {
+						bindDatesToModalFromBooking();
+						calculatePaymentFromBooking();
+						modalButton.click();
+					} else if (data == "Failure") {
+						updateBookingGUIFailure();
+					}
 				},
 				error: function(xhr) {
 					console.log(xhr)
@@ -335,11 +339,18 @@ $(document).ready(function()
 		});
 	}
 
-	function bindDatesToModal() {
+	function bindDatesToModalFromBooking() {
 		$('#arrivalDate').attr("placeholder", "Arrive: " + $("#dp1").val());
 		$('#departDate').attr("placeholder", "Depart: " + $("#dp2").val());
 		$('#nightsCount').attr("placeholder", "Nights: " + days_between(new Date($("#dp2").val()),new Date($("#dp1").val())));
 		$('#guestCount').attr("placeholder", "Guest: " + (parseInt($("#s2").val()) + parseInt($("#s1").val())));
+	} 
+	function bindDatesToModal(arrivalDate, departDate, nightsCount, guestCount) {
+		$('#arrivalDate').attr("placeholder", "Arrive: " + arrivalDate);
+		$('#departDate').attr("placeholder", "Depart: " + departDate);
+		$('#nightsCount').attr("placeholder", "Nights: " + nightsCount);
+		$('#guestCount').attr("placeholder", "Guest: " + guestCount);
+
 	} 
 
 	function days_between(date1, date2) {
@@ -358,7 +369,7 @@ $(document).ready(function()
 	    return Math.round(difference_ms/ONE_DAY);
 	}
 	
-	function calculatePayment() {
+	function calculatePaymentFromBooking() {
 		var nightlyRate = 200.00;
 		var nights = days_between(new Date($("#dp2").val()),new Date($("#dp1").val()));
 		var cleaningRate = 25.00;
@@ -379,6 +390,44 @@ $(document).ready(function()
 		lodgingFee.append("$" + lodgingRate * nights);
 		totalPayment.append(((nightlyRate * nights) + (cleaningRate * nights) + (serviceRate * nights) + (lodgingRate * nights)));	
 	}
+	function calculatePayment(nightsCount) {
+		var nightlyRate = 200.00;
+		var nights = nightsCount;
+		var cleaningRate = 25.00;
+		var serviceRate = 30.00;
+		var lodgingRate = 35.00;
+
+		var paymentTitle = $('#paymentTitle');
+		var calculatedPayment = $('#calculatedPayment');
+		var cleaningFee = $('#cleaningFee');
+		var serviceFee = $('#serviceFee');			
+		var lodgingFee = $('#lodgingFee');
+		var totalPayment = $('#totalPayment');
+
+		paymentTitle.append(nightlyRate + " x " + nights + " nights");
+		calculatedPayment.append("$" + nightlyRate * nights);
+		cleaningFee.append("$" + cleaningRate * nights);
+		serviceFee.append("$" + serviceRate * nights);
+		lodgingFee.append("$" + lodgingRate * nights);
+		totalPayment.append(((nightlyRate * nights) + (cleaningRate * nights) + (serviceRate * nights) + (lodgingRate * nights)));	
+	}
+
+	function updateBookingGUIFailure() {
+		$('#bookDatesFailureMessage').css('display','block');	
+	}
+
+	function validationMessageHandler() {
+		if (localStorage.getItem('bookDatesFailureMessage')) {
+			$('#bookDatesFailureMessage').css('display','block');
+			localStorage.clear();
+		} else if (localStorage.getItem('bookingIndexSuccessMessage')) {
+			bindDatesToModal(localStorage.getItem('arrivalDate'),localStorage.getItem('departDate'),localStorage.getItem('nightsCount'),localStorage.getItem('guestCount'));
+			calculatePayment(localStorage.getItem('nightsCount'));
+			modalButton.click();
+			localStorage.clear();
+		}
+	}
+	validationMessageHandler();
 });
 
 

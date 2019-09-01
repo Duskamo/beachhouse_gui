@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template
 import requests
+import threading
 import os
 app = Flask(__name__)
 
@@ -86,9 +87,9 @@ def book():
 
 	# Return user to booking page with dates pre-booked if available, if not then return error message to user
 	if (resp.text == "available"):
-		return "booking"
+		return "Success"
 	else:
-		return "booking"
+		return "Failure"
 
 @app.route('/book_through_index', methods=['POST'])
 def book_through_index():
@@ -100,13 +101,10 @@ def book_through_index():
 	resp = requests.post(bookingServiceUrl,json=bookingInfo)
 
 	# Return user to booking page with dates pre-booked if available, if not then return error message to user 
-	#return resp.text
-
-	print(resp.text)
 	if (resp.text == "available"):
-		return "booking"
+		return "Success"
 	else:
-		return "/"
+		return "Failure"
 
 @app.route('/book_payment', methods=['POST'])
 def book_payment():
@@ -129,12 +127,21 @@ def book_payment():
 		bookingSaveToReservationsServiceUrl = "http://localhost:5002/save_booked_information_to_reservations"
 		resp = requests.post(bookingSaveToReservationsServiceUrl,json=bookingInfo)
 
-	# Return user to booking page with dates booked and successful confirmation message on success, error message if error
-	if (isPaymentSuccessful == "Success"):
+		# Send newly booked dates to VRBO to prevent double booking
+		t = threading.Thread(target=fireSaveRequests,args=[bookingInfo])
+		t.start()
+
+		# Return user to booking page with dates booked and successful confirmation message on success, error message if error
 		rentalInfo = bookingInfo['rentalInfo']
 		return rentalInfo
+
 	else:
 		return "failure"
+
+# Background Processes
+def fireSaveRequests(bookingInfo):
+	bookingSendToVRBOServiceUrl = "http://localhost:5002/send_booked_information_to_vrbo"
+	resp = requests.post(bookingSendToVRBOServiceUrl,json=bookingInfo)
 
 	
 # Run app on 0.0.0.0:5000
