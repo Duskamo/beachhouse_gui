@@ -127,6 +127,10 @@ def book_payment():
 		bookingSaveToReservationsServiceUrl = "http://localhost:5002/save_booked_information_to_reservations"
 		resp = requests.post(bookingSaveToReservationsServiceUrl,json=bookingInfo)
 
+		# Send email to recipients list confirming the booking went through successfully
+		emailBookingConfirmationUrl = "http://localhost:5001/email_booking_confirmation_to_owner"
+		resp = requests.post(emailBookingConfirmationUrl,json=bookingInfo)
+
 		# Send newly booked dates to VRBO to prevent double booking
 		t = threading.Thread(target=fireSaveRequests,args=[bookingInfo])
 		t.start()
