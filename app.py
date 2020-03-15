@@ -1,7 +1,9 @@
 from flask import Flask, request, render_template
+import datetime
 import requests
 import threading
 import os
+import json
 app = Flask(__name__)
 
 # Page Requests
@@ -64,6 +66,23 @@ def get_calendar_info():
 
 	return calendarDates
 
+@app.route('/get_nightly_rates_by_booked_date', methods=['POST'])
+def get_nightly_rates_by_booked_date():
+	# Gather booking request data
+	bookingInfo = request.json
+
+	print("yo: ")
+	print(bookingInfo)
+
+	# Fetch and return rates booked dates
+	bookingRatesServiceUrl = "http://localhost:5002/get_nightly_rates_by_booked_date"
+	bookingRates = requests.get(bookingRatesServiceUrl,json=bookingInfo)
+
+	print(bookingRates.text)
+
+	# Return booked rates to wizard for processing
+	return bookingRates.text
+
 @app.route('/send_contact', methods=['POST'])
 def send_contact():
 	# Gather Data
@@ -111,12 +130,16 @@ def book_payment():
 	# Gather booking request data
 	bookingInfo = request.json
 
+	# Format booking data to match VRBO styled data, %m/%d/%Y to %Y-%m-%d
+	bookingInfo['rentalInfo']['arrivalDate'] = datetime.datetime.strptime(bookingInfo['rentalInfo']['arrivalDate'],"%m/%d/%Y").strftime('%Y-%m-%d')
+	bookingInfo['rentalInfo']['departDate'] = datetime.datetime.strptime(bookingInfo['rentalInfo']['departDate'],"%m/%d/%Y").strftime('%Y-%m-%d')	
+
 	# Send Data to payment microservice for scheduling payment to client
 	paymentInfo = bookingInfo['paymentInfo']
 	paymentServiceUrl = "http://localhost:5003/pay"
 	resp = requests.post(paymentServiceUrl,json=paymentInfo)
 	isPaymentSuccessful = resp.text
-
+	
 	# If payment was successful
 	if (isPaymentSuccessful == "Success"):
 		# Store newly booked dates to database
@@ -131,9 +154,13 @@ def book_payment():
 		emailBookingConfirmationUrl = "http://localhost:5001/email_booking_confirmation_to_owner"
 		resp = requests.post(emailBookingConfirmationUrl,json=bookingInfo)
 
+		# Send text to recipients list confirming the booking went through successfully
+		#textBookingConfirmationUrl = "http://localhost:5001/text_booking_confirmation_to_owner"
+		#resp = requests.post(textBookingConfirmationUrl,json=bookingInfo)
+
 		# Send newly booked dates to VRBO to prevent double booking
-		t = threading.Thread(target=fireSaveRequests,args=[bookingInfo])
-		t.start()
+		#t = threading.Thread(target=fireSaveRequests,args=[bookingInfo])
+		#t.start()
 
 		# Return user to booking page with dates booked and successful confirmation message on success, error message if error
 		rentalInfo = bookingInfo['rentalInfo']

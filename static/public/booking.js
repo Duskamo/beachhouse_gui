@@ -316,28 +316,40 @@ $(document).ready(function()
 				"childrenCount" : s2.val()
 			};
 			
-			$.ajax({
-				url: '/book',
-				type: 'post',
-				datatype: 'json',
-				contentType: 'application/json',
-				data: JSON.stringify(bookingData),
-				success: function(data) {
-					console.log(data);
-					if (data == "Success") {
-						bindDatesToModalFromBooking();
-						calculatePaymentFromBooking();
-						modalButton.click();
-					} else if (data == "Failure") {
-						updateBookingGUIFailure();
+			if (dp1.val() == "" ||
+			    dp2.val() == "" ||
+			    (s1.val() == 0 &&
+			    s2.val() == 0)) {
+				updateBookingInputError();
+			} else {
+				$.ajax({
+					url: '/book',
+					type: 'post',
+					datatype: 'json',
+					contentType: 'application/json',
+					data: JSON.stringify(bookingData),
+					success: function(data) {
+						console.log(data);
+						if (data == "Success") {
+							bindDatesToModalFromBooking();
+							calculatePaymentFromBooking(bookingData);
+							modalButton.click();
+						} else if (data == "Failure") {
+							updateBookingGUIFailure();
+						}
+					},
+					error: function(xhr) {
+						console.log(xhr);
 					}
-				},
-				error: function(xhr) {
-					console.log(xhr)
-				}
-			});
+				});
+			}
 		});
 	}
+
+	function updateBookingInputError() {
+		$('#bookInputFailureMessage').css('display','block');
+	}
+
 
 	function bindDatesToModalFromBooking() {
 		$('#arrivalDate').attr("placeholder", "Arrive: " + $("#dp1").val());
@@ -369,47 +381,82 @@ $(document).ready(function()
 	    return Math.round(difference_ms/ONE_DAY);
 	}
 	
-	function calculatePaymentFromBooking() {
-		var nightlyRate = 200.00;
-		var nights = days_between(new Date($("#dp2").val()),new Date($("#dp1").val()));
-		var cleaningRate = 25.00;
-		var serviceRate = 30.00;
-		var lodgingRate = 35.00;
+	function calculatePaymentFromBooking(bookingData) {
+		
+		$.ajax({
+			url: '/get_nightly_rates_by_booked_date',
+			type: 'post',
+			datatype: 'json',
+			contentType: 'application/json',
+			data: JSON.stringify(bookingData),
+			success: function(data) {
+				console.log(data);
+				data = JSON.parse(data);
 
-		var paymentTitle = $('#paymentTitle');
-		var calculatedPayment = $('#calculatedPayment');
-		var cleaningFee = $('#cleaningFee');
-		var serviceFee = $('#serviceFee');			
-		var lodgingFee = $('#lodgingFee');
-		var totalPayment = $('#totalPayment');
+				var nightlyRate = data['nightlyRate'];
+				var nights = days_between(new Date($("#dp2").val()),new Date($("#dp1").val()));
+				var cleaningRate = data['cleaningRate'];
+				var serviceRate = data['serviceRate'];
+				var lodgingRate = data['lodgingRate'];
 
-		paymentTitle.append(nightlyRate + " x " + nights + " nights");
-		calculatedPayment.append("$" + nightlyRate * nights);
-		cleaningFee.append("$" + cleaningRate * nights);
-		serviceFee.append("$" + serviceRate * nights);
-		lodgingFee.append("$" + lodgingRate * nights);
-		totalPayment.append(((nightlyRate * nights) + (cleaningRate * nights) + (serviceRate * nights) + (lodgingRate * nights)));	
+				var paymentTitle = $('#paymentTitle');
+				var calculatedPayment = $('#calculatedPayment');
+				var cleaningFee = $('#cleaningFee');
+				var serviceFee = $('#serviceFee');			
+				var lodgingFee = $('#lodgingFee');
+				var totalPayment = $('#totalPayment');
+
+				paymentTitle.html((nightlyRate / nights) + " x " + nights + " nights");
+				calculatedPayment.html("$" + nightlyRate);
+				cleaningFee.html("$" + cleaningRate * nights);
+				serviceFee.html("$" + serviceRate * nights);
+				lodgingFee.html("$" + lodgingRate * nights);
+				totalPayment.html(((nightlyRate * 1) + (cleaningRate * nights) + (serviceRate * nights) + (lodgingRate * nights)));
+				
+			},
+			error: function(xhr) {
+				console.log(xhr)
+			}
+		});
+				
 	}
-	function calculatePayment(nightsCount) {
-		var nightlyRate = 200.00;
-		var nights = nightsCount;
-		var cleaningRate = 25.00;
-		var serviceRate = 30.00;
-		var lodgingRate = 35.00;
 
-		var paymentTitle = $('#paymentTitle');
-		var calculatedPayment = $('#calculatedPayment');
-		var cleaningFee = $('#cleaningFee');
-		var serviceFee = $('#serviceFee');			
-		var lodgingFee = $('#lodgingFee');
-		var totalPayment = $('#totalPayment');
+	function calculatePayment(nightsCount,bookingData) {
+		$.ajax({
+			url: '/get_nightly_rates_by_booked_date',
+			type: 'post',
+			datatype: 'json',
+			contentType: 'application/json',
+			data: JSON.stringify(bookingData),
+			success: function(data) {
+				console.log(data);
+				data = JSON.parse(data);
 
-		paymentTitle.append(nightlyRate + " x " + nights + " nights");
-		calculatedPayment.append("$" + nightlyRate * nights);
-		cleaningFee.append("$" + cleaningRate * nights);
-		serviceFee.append("$" + serviceRate * nights);
-		lodgingFee.append("$" + lodgingRate * nights);
-		totalPayment.append(((nightlyRate * nights) + (cleaningRate * nights) + (serviceRate * nights) + (lodgingRate * nights)));	
+				var nightlyRate = data['nightlyRate'];
+				var nights = nightsCount;
+				var cleaningRate = data['cleaningRate'];
+				var serviceRate = data['serviceRate'];
+				var lodgingRate = data['lodgingRate'];
+
+				var paymentTitle = $('#paymentTitle');
+				var calculatedPayment = $('#calculatedPayment');
+				var cleaningFee = $('#cleaningFee');
+				var serviceFee = $('#serviceFee');			
+				var lodgingFee = $('#lodgingFee');
+				var totalPayment = $('#totalPayment');
+
+				paymentTitle.html((nightlyRate / nights) + " x " + nights + " nights");
+				calculatedPayment.html("$" + nightlyRate);
+				cleaningFee.html("$" + cleaningRate * nights);
+				serviceFee.html("$" + serviceRate * nights);
+				lodgingFee.html("$" + lodgingRate * nights);
+				totalPayment.html(((nightlyRate * 1) + (cleaningRate * nights) + (serviceRate * nights) + (lodgingRate * nights)));
+				
+			},
+			error: function(xhr) {
+				console.log(xhr)
+			}
+		});	
 	}
 
 	function updateBookingGUIFailure() {
@@ -421,8 +468,13 @@ $(document).ready(function()
 			$('#bookDatesFailureMessage').css('display','block');
 			localStorage.clear();
 		} else if (localStorage.getItem('bookingIndexSuccessMessage')) {
+			var bookingData = {
+				"startDate" : localStorage.getItem('arrivalDate'),
+				"endDate" : localStorage.getItem('departDate')
+			};
+
 			bindDatesToModal(localStorage.getItem('arrivalDate'),localStorage.getItem('departDate'),localStorage.getItem('nightsCount'),localStorage.getItem('guestCount'));
-			calculatePayment(localStorage.getItem('nightsCount'));
+			calculatePayment(localStorage.getItem('nightsCount'),bookingData);
 			modalButton.click();
 			localStorage.clear();
 		}

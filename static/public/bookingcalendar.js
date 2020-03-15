@@ -43,8 +43,8 @@ $j(document).ready(function()
 			calendarEvents.push({
 				id: 999,
 				title: 'Booked',
-				start: new Date(years[i].start, months[i].start, days[i].start),
-				end: new Date(years[i].end, months[i].end, days[i].end),
+				start: new Date(years[i].start, months[i].start, days[i].start+1),
+				end: new Date(years[i].end, months[i].end, days[i].end+1),
 				className: 'success'
 			});
 		}

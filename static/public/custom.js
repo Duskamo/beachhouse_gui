@@ -387,24 +387,35 @@ $(document).ready(function()
 				"childrenCount" : s2.val()
 			};
 			
-			$.ajax({
-				url: '/book_through_index',
-				type: 'post',
-				datatype: 'json',
-				contentType: 'application/json',
-				data: JSON.stringify(bookingData),
-				success: function(data) {
-					if (data == "Success") {
-						updateGUISuccess();
-					} else if (data == "Failure") {
-						updateGUIFailure();
+			if (dp1.val() == "" ||
+			    dp2.val() == "" ||
+			    (s1.val() == 0 &&
+			    s2.val() == 0)) {
+				updateBookingInputError();
+			} else {
+				$.ajax({
+					url: '/book_through_index',
+					type: 'post',
+					datatype: 'json',
+					contentType: 'application/json',
+					data: JSON.stringify(bookingData),
+					success: function(data) {
+						if (data == "Success") {
+							updateGUISuccess();
+						} else if (data == "Failure") {
+							updateGUIFailure();
+						}
+					},
+					error: function(xhr) {
+						console.log(xhr)
 					}
-				},
-				error: function(xhr) {
-					console.log(xhr)
-				}
-			});
+				});
+			}
 		});
+	}
+
+	function updateBookingInputError() {
+		$('#bookInputFailureMessage').css('display','block');
 	}
 
 	function updateGUISuccess() {
