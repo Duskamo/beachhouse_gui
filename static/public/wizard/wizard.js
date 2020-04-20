@@ -3,7 +3,7 @@ $(document).ready(function(){
 	// ****************************************** Stripe Functions BEGIN *************************************************
 
 	// Create a Stripe client.
-	var stripe = Stripe('pk_test_7mAWzNf0nNgcE0rZN7N9e09d00gS50v4CO');
+	var stripe = Stripe('pk_live_eJKtrDpSgSzukwoULBB4d5E3003qRLMwWZ');
 
 	// Create an instance of Elements.
 	var elements = stripe.elements();
