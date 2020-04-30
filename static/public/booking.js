@@ -393,9 +393,9 @@ $(document).ready(function()
 				console.log(data);
 				data = JSON.parse(data);
 
-				var nightlyRate = data['nightlyRate'];
+				var nightlyRate = parseFloat(data['nightlyRate']);
 				var nights = days_between(new Date($("#dp2").val()),new Date($("#dp1").val()));
-				var cleaningRate = data['cleaningRate'];
+				var cleaningRate = parseFloat(data['cleaningRate']);
 				var taxRate = 0.12;
 
 				var paymentTitle = $('#paymentTitle');
@@ -407,8 +407,8 @@ $(document).ready(function()
 				paymentTitle.html((nightlyRate / nights) + " x " + nights + " nights");
 				calculatedPayment.html("$" + nightlyRate);
 				cleaningFee.html("$" + cleaningRate);
-				totalTaxes.html("$" + nightlyRate * taxRate);
-				totalPayment.html(((nightlyRate * 1) + (cleaningRate * 1) + (nightlyRate * taxRate)));
+				totalTaxes.html("$" + (nightlyRate + cleaningRate) * taxRate);
+				totalPayment.html((nightlyRate + cleaningRate + ((nightlyRate + cleaningRate) * taxRate)));
 				
 			},
 			error: function(xhr) {
@@ -429,9 +429,9 @@ $(document).ready(function()
 				console.log(data);
 				data = JSON.parse(data);
 
-				var nightlyRate = data['nightlyRate'];
+				var nightlyRate = parseFloat(data['nightlyRate']);
 				var nights = nightsCount;
-				var cleaningRate = data['cleaningRate'];
+				var cleaningRate = parseFloat(data['cleaningRate']);
 				var taxRate = 0.12;
 
 				var paymentTitle = $('#paymentTitle');
@@ -443,8 +443,8 @@ $(document).ready(function()
 				paymentTitle.html((nightlyRate / nights) + " x " + nights + " nights");
 				calculatedPayment.html("$" + nightlyRate);
 				cleaningFee.html("$" + cleaningRate);
-				totalTaxes.html("$" + nightlyRate * taxRate);
-				totalPayment.html(((nightlyRate * 1) + (cleaningRate * 1) + (nightlyRate * taxRate)));
+				totalTaxes.html("$" + (nightlyRate + cleaningRate) * taxRate);
+				totalPayment.html((nightlyRate + cleaningRate + ((nightlyRate + cleaningRate) * taxRate)));
 				
 			},
 			error: function(xhr) {
