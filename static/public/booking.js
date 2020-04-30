@@ -396,22 +396,19 @@ $(document).ready(function()
 				var nightlyRate = data['nightlyRate'];
 				var nights = days_between(new Date($("#dp2").val()),new Date($("#dp1").val()));
 				var cleaningRate = data['cleaningRate'];
-				var serviceRate = data['serviceRate'];
-				var lodgingRate = data['lodgingRate'];
+				var taxRate = 0.12;
 
 				var paymentTitle = $('#paymentTitle');
 				var calculatedPayment = $('#calculatedPayment');
 				var cleaningFee = $('#cleaningFee');
-				var serviceFee = $('#serviceFee');			
-				var lodgingFee = $('#lodgingFee');
+				var totalTaxes = $('#totalTaxes');			
 				var totalPayment = $('#totalPayment');
 
 				paymentTitle.html((nightlyRate / nights) + " x " + nights + " nights");
 				calculatedPayment.html("$" + nightlyRate);
-				cleaningFee.html("$" + cleaningRate * nights);
-				serviceFee.html("$" + serviceRate * nights);
-				lodgingFee.html("$" + lodgingRate * nights);
-				totalPayment.html(((nightlyRate * 1) + (cleaningRate * nights) + (serviceRate * nights) + (lodgingRate * nights)));
+				cleaningFee.html("$" + cleaningRate);
+				totalTaxes.html("$" + nightlyRate * taxRate);
+				totalPayment.html(((nightlyRate * 1) + (cleaningRate * 1) + (nightlyRate * taxRate)));
 				
 			},
 			error: function(xhr) {
@@ -435,22 +432,19 @@ $(document).ready(function()
 				var nightlyRate = data['nightlyRate'];
 				var nights = nightsCount;
 				var cleaningRate = data['cleaningRate'];
-				var serviceRate = data['serviceRate'];
-				var lodgingRate = data['lodgingRate'];
+				var taxRate = 0.12;
 
 				var paymentTitle = $('#paymentTitle');
 				var calculatedPayment = $('#calculatedPayment');
 				var cleaningFee = $('#cleaningFee');
-				var serviceFee = $('#serviceFee');			
-				var lodgingFee = $('#lodgingFee');
+				var totalTaxes = $('#totalTaxes');			
 				var totalPayment = $('#totalPayment');
 
 				paymentTitle.html((nightlyRate / nights) + " x " + nights + " nights");
 				calculatedPayment.html("$" + nightlyRate);
-				cleaningFee.html("$" + cleaningRate * nights);
-				serviceFee.html("$" + serviceRate * nights);
-				lodgingFee.html("$" + lodgingRate * nights);
-				totalPayment.html(((nightlyRate * 1) + (cleaningRate * nights) + (serviceRate * nights) + (lodgingRate * nights)));
+				cleaningFee.html("$" + cleaningRate);
+				totalTaxes.html("$" + nightlyRate * taxRate);
+				totalPayment.html(((nightlyRate * 1) + (cleaningRate * 1) + (nightlyRate * taxRate)));
 				
 			},
 			error: function(xhr) {
